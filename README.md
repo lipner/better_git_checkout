@@ -32,7 +32,7 @@ _GIT_COMPLETION_LAST_BRANCHES_COUNT=15
 
 1. Clone the repository into your custom plugins directory:
     ```sh
-    git clone https://github.com/yourusername/better_git_checkout.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/better_git_checkout
+    git clone https://github.com/lipner/better_git_checkout.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/better_git_checkout
     ```
 
 2. Add the plugin to your `.zshrc` file:
@@ -49,7 +49,7 @@ _GIT_COMPLETION_LAST_BRANCHES_COUNT=15
 
 1. Clone the repository into a directory of your choice:
     ```sh
-    git clone https://github.com/yourusername/better_git_checkout.git ~/better_git_checkout
+    git clone https://github.com/lipner/better_git_checkout.git ~/better_git_checkout
     ```
 
 2. Source the plugin in your `.zshrc` file:
