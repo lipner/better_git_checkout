@@ -1,6 +1,7 @@
 # Better git checkout autocompleter
 
-Autocompletion plugin for ZSH that will complete `git checkout` with a list of recently checked-out branches.
+Autocompletion plugin for ZSH that will complete `git checkout` with a list of recently checked-out branches.  
+Inspired by the 'git lb' alias from https://ses4j.github.io/2020/04/01/git-alias-recent-branches/.
 
 ## Purpose
 
