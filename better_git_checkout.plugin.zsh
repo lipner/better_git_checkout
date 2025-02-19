@@ -67,9 +67,10 @@ __git_complete_refs__hook() {
 
   # Offer the completions in two groups: recent and regular.
   # Need to do this here, as calling the original function overwrites the completion list.
+  # Using `builtin compadd` because some completion plugins hijack `compadd` (fsf-tab, I'm looking at you)
   emulate -L zsh
-  compadd -V "recent" -X '%B%URecently checked-out branches...%b%u' -Q -l -d display_lines -E 1 -- "${branch_names[@]}"
-  compadd -V "regular" -X '%B%URegular completions...%b%u' -Q -S '' -- $(__git_refs)
+  builtin compadd -V "recent" -X '%B%URecently checked-out branches...%b%u' -Q -l -d display_lines -E 1 -- "${branch_names[@]}"
+  builtin compadd -V "regular" -X '%B%URegular completions...%b%u' -Q -S '' -- $(__git_refs)
   _ret=0
 }
 
