@@ -16,7 +16,7 @@ _last_branches() {
      # remove duplicate branches. -F~ = field separator is ~, !seen[$1]++ = print only first occurrence of $1 (where seen[$1] is 0)
      awk -F~ '!seen[$1]++' |
      # select only N last branches
-     tail -n "${_GIT_COMPLETION_LAST_BRANCHES_COUNT}"|
+     head -n "${_GIT_COMPLETION_LAST_BRANCHES_COUNT}"|
      # transform 'master ~ HEAD@{2 days ago}' to '2 days ago:  master'
      awk -F' ~ HEAD@{' '{print(substr($2, 1, length($2)-1) ":  " $1)}'
 }
