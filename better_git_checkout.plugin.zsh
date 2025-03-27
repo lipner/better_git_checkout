@@ -2,6 +2,8 @@ _GIT_COMPLETION_LAST_BRANCHES_COUNT=${_GIT_COMPLETION_LAST_BRANCHES_COUNT:-10}
 
 # Inspired by 'git lb' alias from https://ses4j.github.io/2020/04/01/git-alias-recent-branches/
 _last_branches() {
+    local cur_branch
+    cur_branch=$(git rev-parse --abbrev-ref HEAD)  # get the current branch
      # show reflog for HEAD:
      #  pull: Fast-forward ~ HEAD@{2 days ago}
      #  checkout: moving from staging to master ~ HEAD@{2 days ago}
@@ -15,10 +17,12 @@ _last_branches() {
      grep 'checkout:' | grep -oE '[^ ]+ ~ .*' |
      # remove duplicate branches. -F~ = field separator is ~, !seen[$1]++ = print only first occurrence of $1 (where seen[$1] is 0)
      awk -F~ '!seen[$1]++' |
-     # select only N last branches
-     head -n "${_GIT_COMPLETION_LAST_BRANCHES_COUNT}"|
+     # select only (N+1) last branches (+1 because we usually delete the curernt branch)
+     head -n "$((${_GIT_COMPLETION_LAST_BRANCHES_COUNT}+1))"|
      # transform 'master ~ HEAD@{2 days ago}' to '2 days ago:  master'
-     awk -F' ~ HEAD@{' '{print(substr($2, 1, length($2)-1) ":  " $1)}'
+     awk -F' ~ HEAD@{' -v cur="$cur_branch" '{ if ($1 != cur) print (substr($2, 1, length($2)-1) ":  " $1) }' |
+     # After potential removal of current branch, select only top N
+     head -n "${_GIT_COMPLETION_LAST_BRANCHES_COUNT}"
 }
 
 __git_complete_refs__hook() {
